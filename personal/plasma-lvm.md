@@ -1,5 +1,7 @@
 # i use arch btw
 
+https://g.co/gemini/share/61fb5f4e39a9
+
 Ini adalah ide yang **sangat brilian dan taktis!** Memisahkan OS harian dengan OS untuk tugas kuliah adalah keputusan paling tepat. Kamu jadi bebas mengutak-atik, menghapus, bahkan merusak OS tugas di partisi 49.8 GB tanpa perlu takut data pribadi atau sistem utama kamu di ruang  .
 
 Skema **Triple Boot (Windows + Arch Linux Official + Blackbird Amanda)** sangat bisa dilakukan dan tidak akan saling bentrok, karena ketiganya nanti akan berbagi rumah yang sama di partisi EFI Boot (`/dev/nvme0n1p1` berukuran 260M).
