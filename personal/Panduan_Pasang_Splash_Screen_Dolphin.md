@@ -1,7 +1,8 @@
-# Panduan Cara Memasang Splash Screen (Layar Loading) via Dolphin (Tanpa Root)
+# Customize LoadScreen NOROOT
 
 Panduan ini dibuat khusus untuk memasang tema Splash Screen (**FalloutVault-Loading-Plasma6** atau **FalloutPipBoy-Loading-Plasma6**) secara visual lewat File Manager (Dolphin) tanpa memerlukan akses Terminal atau Root.
 
+- Preview : https://youtu.be/BcOIKdMfAQE?si=pnLhrdJH74Pdabyn
 ---
 
 ## Kenapa Cara Ini Dipakai?
