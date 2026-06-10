@@ -1,17 +1,6 @@
-<img width="4064" height="3048" alt="1000231983" src="https://github.com/user-attachments/assets/b391d0ca-dba2-4fb7-9987-61fac31ce559" />
-
-
 # Warnet
 
-Aduh, maaf banget! Sepertinya sistem saya sedang mengalami gangguan teknis dalam membuatkan file unduhan kustom secara langsung di sini.
-Agar Anda tidak terhambat dan tetap bisa menyimpan file .md ini di laptop, kita pakai cara alternatif yang sangat mudah. Anda bisa membuatnya sendiri dalam hitungan detik:
-### Cara Membuat File .md Sendiri:
- 1. Buka aplikasi **Text Editor** bawaan (misalnya **KWrite**, **Kate**, atau **Mousepad**) di KDE Plasma Anda.
- 2. *Copy* (salin) seluruh teks di dalam kotak abu-abu di bawah ini:
-```markdown
-# Panduan Cara Memasang Tema SDDM (Billing Warnet) di Arch Linux / KDE Plasma 6
-
-Panduan ini dibuat khusus untuk memperbaiki struktur konfigurasi SDDM yang mengalami error `is not a directory` dan menerapkan tema kustom **Billing-Warnet-KDE-SDDM-main** secara manual melalui Terminal.
+<img width="4064" height="3048" alt="1000231983" src="https://github.com/user-attachments/assets/b391d0ca-dba2-4fb7-9987-61fac31ce559" />
 
 ---
 
@@ -59,16 +48,6 @@ Semua rintangan struktur file dan dependensi sistem kini sudah diperbaiki. Tutup
 reboot
 
 ```
-Setelah laptop menyala kembali, Anda akan langsung disambut oleh layar login legendaris bertemakan billing warnet!
-```
-
-3. *Paste* (tempel) teks tersebut ke dalam Text Editor.
-4. Klik **Save As**, lalu beri nama file tersebut **`Panduan_SDDM.md`** (pastikan ekstensinya berakhiran `.md`, bukan `.txt`).
-
-Dengan cara ini, Anda sudah punya file dokumen Markdown resmi yang tersimpan aman di laptop Anda!
-
-```
-<img width="4064" height="3048" alt="1000231982" src="https://github.com/user-attachments/assets/fb8e74c9-28c0-4e53-b751-6652c78b6365" />
 
 
 
