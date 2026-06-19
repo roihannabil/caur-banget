@@ -45,7 +45,7 @@ mkdir -p .conf/lunar
 cd .conf/lunar
 
 # Mengunduh repositori boilerplate Docker/Podman compose SLiMS
-wget -c [http://github.com/slims/docker-compose-for-slims/archive/master.zip](http://github.com/slims/docker-compose-for-slims/archive/master.zip)
+wget -c wget -c https://github.com/slims/docker-compose-for-slims/archive/master.zip
 
 # Mengekstrak berkas master.zip
 unzip master.zip
@@ -55,6 +55,14 @@ mv docker-compose-for-slims-master compose
 cd compose
 
 ```
+
+# Set Kernel
+
+sudo nvim /etc/sysctl.d/[nama file].conf
+
+masukkan :
+```
+
 ## 5. Konfigurasi Hak Akses & Konfigurasi Kontainer
 Sebelum menjalankan kontainer, sesuaikan izin akses direktori aplikasi agar kontainer Apache/PHP dapat memodifikasi berkas SLiMS di dalamnya, serta lakukan penyesuaian berkas .yaml.
 ```bash
