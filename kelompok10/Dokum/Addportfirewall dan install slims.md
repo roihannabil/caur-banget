@@ -37,6 +37,7 @@ pacman -S wget unzip
 systemctl enable --global podman
 
 ```
+
 ## 4. Mengunduh & Mempersiapkan Source Code SLiMS
 Mengunduh struktur repositori berkas konfigurasi *Docker Compose* khusus SLiMS dari GitHub, kemudian melakukan ekstraksi serta penyesuaian direktori.
 ```bash
@@ -79,16 +80,89 @@ mv docker-compose.yaml docker-compose.yaml.[nama rename]
 mv docker-compose-redis.yaml docker-compose.yaml
 ```
 
+## setup slims
+```
+nano /etc/[nama file]/registries.conf.d/10-unqualified-search-registries.conf
+```
+
+```
+diisi
+```
+unqualified-search-registries = ["docker.io"]
+
+```
+mkdir -p .config/[nama file]
+```
+```
+nano .config/[nama file]/storage.conf
+```
+masukkan
+```
+[storage]
+driver = "overlay"
+
+[storage.options.overlay]
+mount_program = ""
+mountopt = "userxattr"
+```
+
+
 ## 5. Konfigurasi Hak Akses & Konfigurasi Kontainer
-Sebelum menjalankan kontainer, sesuaikan izin akses direktori aplikasi agar kontainer Apache/PHP dapat memodifikasi berkas SLiMS di dalamnya, serta lakukan penyesuaian berkas .yaml.
+
+```
+Mengonfigurasi berkas docker-compose jika diperlukan penyesuaian port atau nama database
+nano docker-compose.yaml
+```
+> disamakan isinya :
+```
+version: "3.7"
+services: 
+    db:
+        image: mysql:5.7
+        restart: always
+        networks: 
+            - slims-net
+        container_name: slims-db
+        env_file: 
+            - db_default.env
+        command: --sql_mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION --max_allowed_packet=1024M
+        volumes:
+            - "./dbdata:/var/lib/mysql"
+        ports:
+            - "127.0.0.1:3306:3306"
+    redis:
+        image: redis:latest
+        restart: always
+        networks: 
+            - slims-net
+        container_name: redis
+        ports:
+            - "127.0.0.1:6379:6379"
+    app01:
+        image: slimsofficial/slims:latest
+        restart: always
+        networks: 
+            - slims-net
+        container_name: slims-app
+        ports:
+            - "80:80"
+            - "443:443"
+        volumes:
+            - "./app:/var/www/html"
+            - "./conf/php/php.ini:/usr/local/etc/php/conf.d/php.ini"
+networks: 
+    slims-net:
+        name: slims-net
+        ipam:
+            driver: default
+```
+
 ```bash
 # Memberikan hak akses penuh ke direktori aplikasi SLiMS agar tidak terkendala permission error
 chmod -R 777 app/slims
 
-# (Opsional) Mengonfigurasi berkas docker-compose jika diperlukan penyesuaian port atau nama database
-nano docker-compose.yaml
-
 ```
+
 ## 6. Menjalankan Layanan SLiMS Berbasis Kontainer
 Menjalankan seluruh arsitektur layanan (Web Server, PHP, dan Database MariaDB) di latar belakang (*background/detached mode*) menggunakan perintah podman compose.
 ```bash
