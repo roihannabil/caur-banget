@@ -58,9 +58,25 @@ cd compose
 
 # Set Kernel
 
-sudo nvim /etc/sysctl.d/[nama file].conf
+nano /etc/sysctl.d/[nama file].conf
 
 masukkan :
+```
+net.ipv4.ip_unprivileged_port_start=80
+```
+Lalu konfirmasi dengan :
+```
+sysctl --system
+```
+
+# Rename
+
+```
+mv docker-compose.yaml docker-compose.yaml.[nama rename]
+```
+
+```
+mv docker-compose-redis.yaml docker-compose.yaml
 ```
 
 ## 5. Konfigurasi Hak Akses & Konfigurasi Kontainer
@@ -82,4 +98,12 @@ podman compose up -d
 # Memeriksa status dan memastikan seluruh kontainer telah berjalan dengan benar
 podman ps -a
 
+```
+
+## 7. Masuk ke website
+masukkan ip server ke website :80
+.
+lihat ip :
+```
+ip a
 ```
