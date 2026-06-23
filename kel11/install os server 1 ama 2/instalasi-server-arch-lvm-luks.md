@@ -130,7 +130,14 @@ echo "[nama user] ALL=(ALL:ALL) ALL" > /etc/sudoers.d/[nama user]
 chown -R [nama user]:[nama user] /home/[nama folder]
 
 nvim /etc/security/pam_mount.conf.xml
+
+<img width="976" height="676" alt="WhatsApp Image 2026-06-24 at 1 10 31 AM (1)" src="https://github.com/user-attachments/assets/12bb9c53-da94-446c-900f-826900eeb904" />
+
+
 nvim /etc/pam.d/system-login
+
+<img width="987" height="491" alt="WhatsApp Image 2026-06-24 at 1 10 31 AM" src="https://github.com/user-attachments/assets/e53eeff3-5b56-44ce-bef5-02450cee952b" />
+
 ```
 
 ---
