@@ -1,5 +1,7 @@
 puny gwh : https://asciinema.org/a/ekPefutNA0ghoKFM
 
+puny gwh percobaan kedua diapus dlu abis tu bru podman compose up tpi malah gagal : https://asciinema.org/a/ZxhhxFstkhq7tiSA
+
 puny sumarecon : https://asciinema.org/a/bEhb8b1idOU2DJny
 
 kemaren gagalnya tuh pas podman ps -a ada error di worker Exited (1) 31 minutes ago
