@@ -1,1 +1,179 @@
 punya gueh : https://asciinema.org/a/4CKlzzwxHqdzWXw2 (Serversatu)
+
+# Instalasi Arch Linux — Server 1 dan Server 2
+### LVM + LUKS (Home Eksternal & Internal) + pam_mount
+
+> Catatan umum: ganti semua teks dalam `[ ]` dengan nilai yang sesuai (nama partisi, nama grup, ukuran, dll). Dua LUKS pada LV `home` digunakan: satu untuk **home eksternal** (dimount manual saat boot) dan satu untuk **home internal** (dimount otomatis via `pam_mount` saat user login).
+
+---
+
+## 1. Bagi Partisi (LVM)
+
+```bash
+lsblk
+pvcreate /dev/[nama partisi]
+vgcreate [nama grup] /dev/[nama partisi]
+
+lvcreate -L [size G|M] [nama grup] -n root
+lvcreate -L [size G|M] [nama grup] -n vars
+lvcreate -L [size G|M] [nama grup] -n vlog
+lvcreate -L [size G|M] [nama grup] -n vaud
+lvcreate -L [size G|M] [nama grup] -n vtmp
+lvcreate -L [size G|M] [nama grup] -n home
+lvcreate -l 50%FREE [nama grup] -n podman
+lvcreate -l 50%FREE [nama grup] -n [nama home untuk internal]
+
+lsblk
+```
+
+> LUKS pada LVM `home` ada **dua**: eksternal dan internal.
+
+---
+
+## 2. Format Partisi
+
+```bash
+mkfs.ext4 /dev/[nama grup]/root
+mkfs.ext4 /dev/[nama grup]/vars
+mkfs.ext4 /dev/[nama grup]/vlog
+mkfs.ext4 /dev/[nama grup]/vaud
+mkfs.ext4 /dev/[nama grup]/vtmp
+mkfs.ext4 /dev/[nama grup]/home
+mkfs.ext4 /dev/[nama grup]/podman
+
+# Kalau lupa nama partisi:
+lsblk -o name,fstype
+
+mkfs.vfat -F32 /dev/[nama partisi boot]
+```
+
+---
+
+## 3. Mounting
+
+```bash
+mount /dev/[nama grup]/root /mnt
+
+mount --mkdir -o rw,uid=0,gid=0,fmask=0077,dmask=0077,relatime /dev/[nama partisi boot] /mnt/boot
+mount --mkdir -o rw,nodev,nosuid,relatime /dev/[nama grup]/vars /mnt/var
+mount --mkdir -o rw,nodev,nosuid,noexec,relatime /dev/[nama grup]/vlog /mnt/var/log
+mount --mkdir -o rw,nodev,nosuid,noexec,relatime /dev/[nama grup]/vaud /mnt/var/log/audit
+mount --mkdir -o rw,nodev,nosuid,noexec,relatime /dev/[nama grup]/vtmp /mnt/var/tmp
+mount --mkdir -o rw,nodev,nosuid,relatime /dev/[nama grup]/home /mnt/home
+mount --mkdir -o rw,nodev,nosuid,relatime /dev/[nama grup]/podman /mnt/var/lib/containers
+```
+
+> `home` untuk **internal** tidak perlu dimounting di sini, karena nanti akan dimounting otomatis menggunakan aplikasi `pam_mount`.
+
+### Setup LUKS untuk Home Internal
+
+```bash
+cryptsetup luksFormat /dev/[nama grup]/[nama home internal]
+# Konfirmasi: YES
+# Buat password — password ini HARUS SAMA dengan password user nanti
+```
+
+---
+
+## 4. Install Package
+
+```bash
+pacstrap /mnt intel-ucode base linux-hardened linux-hardened-headers linux-firmware \
+  mkinitcpio lvm2 sudo pacman git wget curl neovim iwd firewalld openssh grep \
+  podman podman-compose asciinema
+```
+
+---
+
+## 5. After Install
+
+```bash
+genfstab -U /mnt > /mnt/etc/fstab
+echo "tmpfs /tmp tmpfs defaults,rw,nosuid,nodev,noexec,relatime,size=512M 0 0" >> /mnt/etc/fstab
+
+cp /etc/systemd/network/* /mnt/etc/systemd/network
+
+arch-chroot /mnt
+
+echo [hostname] > /etc/hostname
+ln -sf /usr/share/zoneinfo/Asia/Jakarta /etc/localtime
+hwclock --systohc
+
+nvim /etc/locale.gen
+# Cari baris EN_US, hapus tanda pagar (#) di kedua barisnya
+
+locale-gen
+locale > /etc/locale.conf
+nvim /etc/locale.conf
+
+pacman -S pam_mount
+
+lsblk
+```
+
+---
+
+## 6. Setup Home Internal
+
+```bash
+cryptsetup luksOpen /dev/[nama grup]/[nama home internal] [device name]
+# Masukkan password yang sudah dibuat sebelumnya
+
+mkfs.ext4 /dev/mapper/[device name]
+
+mkdir /home/[nama folder]
+useradd -d /home/[nama folder] [nama user]
+
+passwd [nama user]
+# Masukkan password — HARUS SAMA dengan password saat cryptsetup luksFormat
+
+echo "[nama user] ALL=(ALL:ALL) ALL" > /etc/sudoers.d/[nama user]
+
+chown -R [nama user]:[nama user] /home/[nama folder]
+
+nvim /etc/security/pam_mount.conf.xml
+
+<img width="1920" height="1080" alt="Screenshot From 2026-06-22 20-29-08" src="https://github.com/user-attachments/assets/6a123f25-1a33-49c0-81db-084aa44d100d" />
+
+
+nvim /etc/pam.d/system-login
+
+
+<img width="1920" height="1080" alt="Screenshot From 2026-06-22 20-29-29" src="https://github.com/user-attachments/assets/4bb948ff-1582-4755-9db8-28d7da7b39e3" />
+
+---
+
+## 7. Mkinitcpio
+
+```bash
+mkdir /etc/mkinitcpio.d
+nvim /etc/cmdline.d/boot.conf
+nvim /etc/mkinitcpio.conf
+nvim /etc/mkinitcpio.d/linux-hardened.preset
+```
+
+---
+
+## 8. Install systemd-boot
+
+```bash
+bootctl --path=/boot install
+mkinitcpio -P
+
+systemctl enable systemd-networkd
+systemctl enable iwd
+systemctl enable firewalld
+systemctl enable sshd
+
+exit
+```
+
+### Khusus untuk Lenovo
+
+```bash
+bootctl --path=/mnt/boot install
+```
+
+```bash
+reboot
+```
