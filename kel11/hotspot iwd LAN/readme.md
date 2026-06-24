@@ -9,3 +9,6 @@ mreka jg server 1,2 : https://asciinema.org/a/hmZ2CuOkwu2SIy7m
 [8:53 PM, 6/23/2026] roihan nabil: Yg myhotspot : 4.4.4.3
 
 [8:53 PM, 6/23/2026] roihan nabil: Server 2 : 11.11.11.2
+
+
+buat ngecek yg hotspot : nano /var/lib/iwd/ap/myhotspot.ap
