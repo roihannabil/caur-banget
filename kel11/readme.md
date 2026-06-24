@@ -27,3 +27,6 @@ https://asciinema.org/a/CmdMWM7lbhamRzgy
 
 9. Memasang nginx di server 2
 https://asciinema.org/a/j7cfL5IVOgnWpqLh
+
+
+ganti kernel hardened : https://asciinema.org/a/WJkf334pyU9IdXwi
