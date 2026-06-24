@@ -4,6 +4,8 @@ puny gwh percobaan kedua diapus dlu abis tu bru podman compose up tpi malah gaga
 
 puny sumarecon : https://asciinema.org/a/bEhb8b1idOU2DJny
 
+## ud di fix nih kelarr : https://drive.google.com/drive/folders/1QKe8kiQJarsZoQTk2kBymy6adG0Iwwej
+
 kemaren gagalnya tuh pas podman ps -a ada error di worker Exited (1) 31 minutes ago
 
 INI KATA GEMINI :
