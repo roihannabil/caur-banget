@@ -1,3 +1,23 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>The Beatles</title>
+</head>
+<body>
+    <h1>The Beatles</h1>
+    <p>The Beatles adalah kelompok musik rock asal Liverpool, Inggris yang dibentuk pada tahun 1960. Beranggotakan John Lennon, Paul McCartney, George Harrison, dan Ringo Starr, mereka secara luas dianggap sebagai band paling berpengaruh dalam sejarah musik populer. Musik mereka menggabungkan elemen pop, rock, dan eksperimentasi studio yang mengubah industri musik dunia.</p>
+
+<section id="section1">
+    <p class="intro">Silahkan pencet link dibawah untuk informasi lebih lanjut.</p>
+     <a href="https://youtu.be/NCtzkaL2t_Y?si=XesRDWyiScV4HohU" target="_blank">Info lebih lanjut</a>
+
+    <form action="submit">
+        <input type="text" name="name" placeholder="Masukkan nama Anda">
+        <button type="submit">Kirim</button>
+    </form>
+</section>
+
 <section id="section2">
     <h2>Album Populer The Beatles</h2>
     <ol>
