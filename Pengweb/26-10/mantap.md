@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UTS Perpustakaan Digital - Koleksi Fantasi</title>
     
-    <!-- INTERNAL CSS -->
     <style>
-        /* 1. Reset & Layout Dasar */
+        /* =========================================
+           1. RESET & PENGATURAN DASAR
+           ========================================= */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -21,7 +22,9 @@
             line-height: 1.6;
         }
 
-        /* 2. Header */
+        /* =========================================
+           2. HEADER & CONTAINER
+           ========================================= */
         header {
             background-color: #0f172a;
             color: #ffffff;
@@ -41,7 +44,6 @@
             font-size: 15px;
         }
 
-        /* 3. Container Utama */
         .container {
             width: 90%;
             max-width: 1100px;
@@ -55,7 +57,9 @@
             font-size: 22px;
         }
 
-        /* 4. Flexbox Layout untuk Kartu */
+        /* =========================================
+           3. LAYOUT KARTU BUKU (FLEXBOX)
+           ========================================= */
         .cards {
             display: flex;
             gap: 24px;
@@ -63,7 +67,6 @@
             justify-content: center;
         }
 
-        /* 5. Styling Setiap Kartu Buku */
         .card {
             background-color: #ffffff;
             flex: 1 1 300px;
@@ -82,10 +85,10 @@
             height: 140px;
         }
 
-        /* Warna banner disesuaikan dengan tema buku */
-        .bg-hp { background-color: #740001; } /* Merah Gryffindor */
-        .bg-got { background-color: #5c0f0f; } /* Merah Gelap Targaryen */
-        .bg-lotr { background-color: #2e5a2c; } /* Hijau Elven */
+        /* Tema Warna per Buku */
+        .bg-hp { background-color: #740001; } 
+        .bg-got { background-color: #5c0f0f; } 
+        .bg-lotr { background-color: #2e5a2c; } 
 
         .badge-tag {
             display: inline-block;
@@ -104,7 +107,6 @@
             line-height: 1.3;
         }
 
-        /* 6. Content Data Buku */
         .card-body {
             padding: 20px;
             display: flex;
@@ -129,7 +131,6 @@
         .info-label { color: #64748b; font-weight: bold; }
         .info-value { font-weight: bold; color: #0f172a; text-align: right; }
 
-        /* 7. Footer Kartu */
         .card-footer {
             margin-top: auto;
             display: flex;
@@ -156,14 +157,22 @@
 
         .btn-lanjut:hover { background-color: #334155; }
 
-        /* 8. TAMPILAN DETAIL BUKU (Mirip Goodreads) */
+        /* =========================================
+           4. TAMPILAN DETAIL (Trik CSS :target)
+           ========================================= */
         .detail-section {
-            margin-top: 60px;
+            /* Sembunyikan semua detail secara default */
+            display: none; 
+            margin-top: 40px;
             padding-top: 40px;
             border-top: 2px dashed #cbd5e1;
         }
 
-        /* Menggunakan Flexbox untuk menyusun gambar di kiri dan teks di kanan */
+        /* TRIK CSS: Tampilkan hanya jika ID-nya diklik dari tautan (menjadi target) */
+        .detail-section:target {
+            display: block;
+        }
+
         .detail-container {
             display: flex;
             gap: 30px;
@@ -172,20 +181,40 @@
             border-radius: 10px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
             border: 1px solid #e2e8f0;
+            position: relative; /* Agar tombol tutup bisa diposisikan di dalam */
+        }
+
+        /* Tombol Tutup (Silang) */
+        .btn-tutup {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            text-decoration: none;
+            color: #ef4444;
+            font-weight: bold;
+            font-size: 14px;
+            border: 1px solid #ef4444;
+            padding: 4px 10px;
+            border-radius: 4px;
+        }
+        .btn-tutup:hover {
+            background-color: #ef4444;
+            color: white;
         }
 
         .detail-left img {
-            width: 160px;
+            width: 150px;
             border-radius: 4px;
             box-shadow: 0 2px 6px rgba(0,0,0,0.2);
         }
 
         .detail-right {
-            flex: 1; /* Mengisi sisa ruang di sebelah kanan */
+            flex: 1;
+            padding-right: 20px;
         }
 
         .detail-right h3 {
-            font-size: 24px;
+            font-size: 22px;
             color: #0f172a;
             margin-bottom: 5px;
         }
@@ -197,8 +226,8 @@
         }
 
         .detail-right .rating {
-            color: #d97706; /* Warna oranye bintang */
-            font-size: 18px;
+            color: #d97706; 
+            font-size: 16px;
             font-weight: bold;
             margin-bottom: 15px;
         }
@@ -227,7 +256,6 @@
 
     <main class="container">
         
-        <!-- BAGIAN KARTU BUKU -->
         <section>
             <h2 class="section-title">Buku Terpopuler</h2>
 
@@ -246,7 +274,8 @@
                         </ul>
                         <div class="card-footer">
                             <span class="status-available">✓ Tersedia</span>
-                            <a href="#detail" class="btn-lanjut">Lebih Lanjut</a>
+                            <!-- Tautan ini menargetkan ID #buku1 di bawah -->
+                            <a href="#buku1" class="btn-lanjut">Lebih Lanjut</a>
                         </div>
                     </div>
                 </article>
@@ -255,7 +284,7 @@
                 <article class="card">
                     <div class="card-header bg-got">
                         <span class="badge-tag">Epik Fantasi</span>
-                        <h2>The World of Ice & Fire: The Untold History of Westeros</h2>
+                        <h2>The World of Ice & Fire: History of Westeros</h2>
                     </div>
                     <div class="card-body">
                         <ul class="info-list">
@@ -265,7 +294,8 @@
                         </ul>
                         <div class="card-footer">
                             <span class="status-available">✓ Tersedia</span>
-                            <a href="#detail" class="btn-lanjut">Lebih Lanjut</a>
+                            <!-- Tautan ini menargetkan ID #buku2 di bawah -->
+                            <a href="#buku2" class="btn-lanjut">Lebih Lanjut</a>
                         </div>
                     </div>
                 </article>
@@ -274,7 +304,7 @@
                 <article class="card">
                     <div class="card-header bg-lotr">
                         <span class="badge-tag">High Fantasy</span>
-                        <h2>The Fellowship of the Ring (The Lord of the Rings #1)</h2>
+                        <h2>The Fellowship of the Ring (LOTR #1)</h2>
                     </div>
                     <div class="card-body">
                         <ul class="info-list">
@@ -284,32 +314,77 @@
                         </ul>
                         <div class="card-footer">
                             <span class="status-available">✓ Tersedia</span>
-                            <a href="#detail" class="btn-lanjut">Lebih Lanjut</a>
+                            <!-- Tautan ini menargetkan ID #buku3 di bawah -->
+                            <a href="#buku3" class="btn-lanjut">Lebih Lanjut</a>
                         </div>
                     </div>
                 </article>
             </div>
         </section>
 
-        <!-- BAGIAN DETAIL BUKU (Target dari tombol "Lebih Lanjut") -->
-        <section id="detail" class="detail-section">
+        <!-- =========================================
+             AREA DETAIL BUKU (Hanya Muncul Saat Diklik)
+             ========================================= -->
+
+        <!-- DETAIL BUKU 1 -->
+        <section id="buku1" class="detail-section">
             <h2 class="section-title">Informasi Detail Buku</h2>
-            
             <div class="detail-container">
-                <!-- Sisi Kiri: Gambar Cover -->
+                <a href="#" class="btn-tutup">Tutup ✕</a>
                 <div class="detail-left">
-                    <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1400850257i/17345242.jpg" alt="Cover Buku">
+                    <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1474154022i/3.jpg" alt="Cover Harry Potter">
                 </div>
-                
-                <!-- Sisi Kanan: Teks & Sinopsis -->
+                <div class="detail-right">
+                    <h3>Harry Potter and the Sorcerer's Stone</h3>
+                    <p class="author">J.K. Rowling</p>
+                    <p class="rating">⭐⭐⭐⭐ 4.47</p>
+                    <div class="synopsis">
+                        <p>Harry Potter sama sekali tidak tahu betapa terkenalnya dia. Itu karena ia dibesarkan oleh bibi dan pamannya yang menyedihkan, yang sangat takut Harry akan mengetahui bahwa dia sebenarnya adalah seorang penyihir.</p>
+                        <br>
+                        <p>Namun semua itu berubah ketika sebuah surat misterius tiba, mengundangnya ke Sekolah Sihir Hogwarts. Di sanalah petualangan ajaibnya dimulai.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DETAIL BUKU 2 -->
+        <section id="buku2" class="detail-section">
+            <h2 class="section-title">Informasi Detail Buku</h2>
+            <div class="detail-container">
+                <a href="#" class="btn-tutup">Tutup ✕</a>
+                <div class="detail-left">
+                    <img src="<img width="388" height="515" alt="image" src="https://github.com/user-attachments/assets/1008cd60-7917-4b81-aed8-61f25fe955c9" />
+" alt="Cover Game of Thrones">
+                </div>
                 <div class="detail-right">
                     <h3>The World of Ice & Fire: The Untold History of Westeros</h3>
                     <p class="author">George R.R. Martin, Elio M. García Jr., Linda Antonsson</p>
                     <p class="rating">⭐⭐⭐⭐ 4.25</p>
                     <div class="synopsis">
-                        <p>The never-before-seen history of Westeros and the lands beyond. With hundreds of pages of all new material from George R.R. Martin.</p>
+                        <p>Sejarah Westeros dan wilayah di luarnya yang belum pernah diceritakan sebelumnya. Dilengkapi dengan ratusan halaman materi baru dari George R.R. Martin.</p>
                         <br>
-                        <p>If the past is prologue, then George R.R. Martin's masterwork—the most inventive and entertaining fantasy saga of our time—warrants one hell of an introduction. At long last, it has arrived with THE WORLD OF ICE AND FIRE.</p>
+                        <p>Jika masa lalu adalah prolog, maka mahakarya George R.R. Martin ini menjanjikan pengantar yang sangat memukau untuk dunia epik <i>A Song of Ice and Fire</i>.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DETAIL BUKU 3 -->
+        <section id="buku3" class="detail-section">
+            <h2 class="section-title">Informasi Detail Buku</h2>
+            <div class="detail-container">
+                <a href="#" class="btn-tutup">Tutup ✕</a>
+                <div class="detail-left">
+                    <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1654215925i/61215351.jpg" alt="Cover Lord of The Rings">
+                </div>
+                <div class="detail-right">
+                    <h3>The Fellowship of the Ring (The Lord of the Rings #1)</h3>
+                    <p class="author">J.R.R. Tolkien</p>
+                    <p class="rating">⭐⭐⭐⭐ 4.38</p>
+                    <div class="synopsis">
+                        <p>Di sebuah desa yang tenang di Shire, seorang hobbit muda bernama Frodo Baggins dipercayakan dengan tugas yang sangat besar. Ia menerima sebuah cincin ajaib dari pamannya, Bilbo.</p>
+                        <br>
+                        <p>Frodo harus melakukan perjalanan berbahaya melintasi Middle-earth menuju Mount Doom untuk menghancurkan Cincin Kekuasaan sebelum jatuh ke tangan Pangeran Kegelapan, Sauron.</p>
                     </div>
                 </div>
             </div>
