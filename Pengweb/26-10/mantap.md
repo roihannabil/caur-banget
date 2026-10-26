@@ -353,7 +353,8 @@
             <div class="detail-container">
                 <a href="#" class="btn-tutup">Tutup ✕</a>
                 <div class="detail-left">
-                    <img src="<img width="388" height="515" alt="image" src="https://github.com/user-attachments/assets/1008cd60-7917-4b81-aed8-61f25fe955c9" />
+                    <img src="<img width="388" height="515" alt="rrmartin" src="https://github.com/user-attachments/assets/7de84b35-c51e-45aa-817b-8fa8ca95a856" />
+" />
 " alt="Cover Game of Thrones">
                 </div>
                 <div class="detail-right">
