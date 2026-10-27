@@ -1,3 +1,4 @@
+<img width="1875" height="2063" alt="House_Targaryen" src="https://github.com/user-attachments/assets/f91312d9-b068-4d54-81ae-9528658e7727" />
 <!DOCTYPE html>
 <html lang="id">
 <head>
