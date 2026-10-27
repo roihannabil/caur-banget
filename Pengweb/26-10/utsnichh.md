@@ -1,4 +1,7 @@
 <img width="1875" height="2063" alt="House_Targaryen" src="https://github.com/user-attachments/assets/f91312d9-b068-4d54-81ae-9528658e7727" />
+
+
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -8,14 +11,16 @@
     
     <style>
         /* =========================================================
-           VARIABEL WARNA & PENGATURAN DASAR
+           PALET WARNA TEMA "GAME OF THRONES"
            ========================================================= */
         :root {
-            --primary-color: #1e40af; 
-            --secondary-color: #f3f4f6;
-            --text-color: #333333;
-            --white: #ffffff;
-            --accent-color: #d97706; 
+            --primary-color: #5c0f0f;  /* Merah darah gelap (Targaryen Red) - Sesuai Logo */
+            --nav-bg: #1a1a1a;         /* Hitam Obsidian/Batu untuk navigasi */
+            --secondary-color: #f4f1ea;/* Putih tulang/Perkamen tua untuk background */
+            --text-color: #2b2b2b;     /* Abu-abu sangat gelap untuk teks */
+            --white: #ffffff;          /* Putih bersih untuk isi kartu */
+            --accent-color: #c5a059;   /* Emas redup (Gold) untuk aksen/hover */
+            --tag-bg: #ebd6d6;         /* Merah sangat muda untuk tag */
         }
 
         * {
@@ -25,10 +30,16 @@
         }
 
         body {
+            /* Teks biasa menggunakan font modern agar tetap mudah dibaca */
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--secondary-color);
             color: var(--text-color);
             line-height: 1.6;
+        }
+
+        /* Judul-judul menggunakan font Serif klasik agar terasa seperti buku fantasi tua */
+        h1, h2, h3 {
+            font-family: 'Georgia', 'Times New Roman', Times, serif;
         }
 
         .container {
@@ -44,17 +55,37 @@
         header {
             background-color: var(--primary-color);
             color: var(--white);
-            padding: 30px 20px;
-            text-align: center;
+            padding: 20px;
+            border-bottom: 3px solid var(--accent-color); /* Garis emas di bawah header */
         }
 
-        header h1 { font-size: 28px; margin-bottom: 5px; }
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .header-logo {
+            width: 80px; 
+            height: auto;
+            border-radius: 50%; /* Membuat logo menjadi bulat sempurna */
+            box-shadow: 0 0 10px rgba(0,0,0,0.5); 
+        }
+
+        .header-text { text-align: left; }
+        .header-text h1 { font-size: 32px; margin-bottom: 5px; }
+        .header-text p { font-style: italic; color: #e2d1d1; }
 
         nav {
-            background-color: #1e3a8a;
+            background-color: var(--nav-bg);
             position: sticky;
             top: 0;
             z-index: 100;
+            border-bottom: 1px solid #000000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
 
         .nav-links {
@@ -68,25 +99,31 @@
         .nav-links a {
             color: var(--white);
             text-decoration: none;
-            font-weight: bold;
             font-size: 15px;
-            padding: 5px 10px;
+            padding: 5px 12px;
             border-radius: 4px;
-            transition: background 0.3s;
+            transition: 0.3s;
+            text-transform: uppercase; /* Huruf kapital semua untuk menu */
+            letter-spacing: 1px;
         }
 
-        .nav-links a:hover { background-color: #3b82f6; }
+        .nav-links a:hover { 
+            background-color: var(--primary-color); 
+            color: var(--white);
+        }
 
         section {
             padding: 40px 0;
-            border-bottom: 2px dashed #cbd5e1;
+            border-bottom: 2px dashed #d1c8b8;
         }
 
         .section-title {
             text-align: center;
-            font-size: 24px;
+            font-size: 26px;
             color: var(--primary-color);
             margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
         /* =========================================================
@@ -105,9 +142,11 @@
             max-width: 500px;
             padding: 12px 20px;
             font-size: 16px;
-            border: 2px solid #cbd5e1;
+            border: 2px solid #d1c8b8;
+            background-color: var(--white);
             border-radius: 30px;
             outline: none;
+            font-family: inherit;
         }
 
         .search-bar:focus { border-color: var(--primary-color); }
@@ -122,24 +161,23 @@
         /* =========================================================
            TRIK FILTER MURNI CSS (TANPA JAVASCRIPT)
            ========================================================= */
-        /* 1. Sembunyikan radio button asli */
         .hidden-radio { display: none; }
 
-        /* 2. Ubah tampilan Label agar terlihat seperti Tombol */
         .filter-btn {
             padding: 8px 20px;
-            background-color: #e2e8f0;
+            background-color: #e0d8c8; /* Warna perkamen sedikit gelap */
             color: var(--text-color);
             border-radius: 20px;
             cursor: pointer;
             font-weight: bold;
             transition: 0.3s;
             display: inline-block;
+            border: 1px solid #d1c8b8;
         }
 
-        .filter-btn:hover { background-color: #cbd5e1; }
+        .filter-btn:hover { background-color: #d1c8b8; }
 
-        /* 3. Mewarnai tombol/label saat Radio Button-nya terpilih (:checked) */
+        /* Mewarnai tombol saat aktif */
         #radio-semua:checked ~ #kategori .btn-semua,
         #radio-fiksi:checked ~ #kategori .btn-fiksi,
         #radio-teknologi:checked ~ #kategori .btn-teknologi,
@@ -147,11 +185,12 @@
         #radio-jurnal:checked ~ #kategori .btn-jurnal {
             background-color: var(--primary-color);
             color: var(--white);
+            border-color: var(--primary-color);
         }
 
-        /* 4. Logika Penyaringan: Menyembunyikan kartu & section yang TIDAK SESUAI */
+        /* Logika Menyembunyikan Kartu */
         #radio-fiksi:checked ~ #katalog .card:not(.kategori-fiksi) { display: none; }
-        #radio-fiksi:checked ~ #jurnal { display: none; } /* Sembunyikan semua jurnal jika klik Fiksi */
+        #radio-fiksi:checked ~ #jurnal { display: none; } 
 
         #radio-teknologi:checked ~ #katalog .card:not(.kategori-teknologi) { display: none; }
         #radio-teknologi:checked ~ #jurnal { display: none; } 
@@ -159,7 +198,7 @@
         #radio-ilmu:checked ~ #katalog .card:not(.kategori-ilmu) { display: none; }
         #radio-ilmu:checked ~ #jurnal { display: none; } 
 
-        #radio-jurnal:checked ~ #katalog { display: none; } /* Sembunyikan semua buku jika klik Jurnal */
+        #radio-jurnal:checked ~ #katalog { display: none; } 
 
         /* =========================================================
            GAYA KARTU BUKU & JURNAL
@@ -167,7 +206,7 @@
         .cards {
             display: flex;
             flex-wrap: wrap;
-            gap: 20px;
+            gap: 24px;
             justify-content: center;
         }
 
@@ -175,79 +214,94 @@
             background-color: var(--white);
             flex: 1 1 250px;
             max-width: 300px;
-            border-radius: 10px;
-            border: 1px solid #e2e8f0;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            padding: 20px;
+            border-radius: 8px; /* Ujung kartu sedikit lebih tegas */
+            border: 1px solid #d1c8b8;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            padding: 24px;
             display: flex;
             flex-direction: column;
-            transition: transform 0.3s;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
 
         .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+            transform: translateY(-6px);
+            box-shadow: 0 12px 20px rgba(0,0,0,0.12);
         }
 
         .kategori-tag {
-            font-size: 12px;
+            font-size: 11px;
             font-weight: bold;
-            background-color: #dbeafe;
+            background-color: var(--tag-bg);
             color: var(--primary-color);
-            padding: 4px 8px;
+            padding: 4px 10px;
             border-radius: 4px;
             align-self: flex-start;
             margin-bottom: 15px;
             text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .card h3 { font-size: 18px; margin-bottom: 10px; color: #0f172a; line-height: 1.3; }
+        .card h3 { font-size: 20px; margin-bottom: 10px; color: var(--primary-color); line-height: 1.3; }
         .card p { font-size: 14px; margin-bottom: 5px; }
-        .penulis { color: #64748b; font-weight: bold; }
+        .penulis { color: #5a5a5a; font-weight: bold; }
 
         /* Tombol Detail */
         .card-footer {
             margin-top: auto; 
-            padding-top: 15px;
-            border-top: 1px solid #f1f5f9;
+            padding-top: 18px;
+            border-top: 1px solid #f4f1ea;
             display: flex;
             justify-content: flex-end;
         }
 
         .btn-detail {
-            background-color: var(--primary-color);
+            background-color: var(--nav-bg); /* Tombol hitam elegan */
             color: var(--white);
-            padding: 6px 14px;
-            border-radius: 5px;
+            padding: 8px 16px;
+            border-radius: 4px;
             text-decoration: none;
             font-size: 12px;
             font-weight: bold;
             transition: 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .btn-detail:hover { background-color: var(--accent-color); }
 
         footer {
-            background-color: var(--primary-color);
+            background-color: var(--nav-bg);
             color: var(--white);
             text-align: center;
-            padding: 20px;
-            margin-top: 40px;
+            padding: 25px;
+            margin-top: 50px;
+            border-top: 3px solid var(--primary-color);
         }
 
-        /* RESPONSIVITAS MOBILE */
+        /* =========================================================
+           RESPONSIVITAS MOBILE (MEDIA QUERY)
+           ========================================================= */
         @media (max-width: 768px) {
             .cards { flex-direction: column; align-items: center; }
             .card { width: 100%; max-width: 100%; }
             .nav-links { flex-direction: column; text-align: center; gap: 10px; }
+            
+            .header-container { flex-direction: column; text-align: center; }
+            .header-text { text-align: center; }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>Perpustakaan Universitas Jackpot</h1>
-        <p>Bukan kamu yang memilih buku, melainkan buku yang memilihmu </p>
+        <div class="header-container">
+            <img src="https://github.com/user-attachments/assets/f91312d9-b068-4d54-81ae-9528658e7727" alt="Logo Perpustakaan" class="header-logo">
+            
+            <div class="header-text">
+                <h1>Perpustakaan Universitas Jackpot</h1>
+                <p>Bukan kamu yang memilih buku, melainkan buku yang memilihmu</p>
+            </div>
+        </div>
     </header>
 
     <nav>
@@ -270,8 +324,8 @@
 
         <section id="beranda">
             <h2 class="section-title">Selamat Datang !!!</h2>
-            <p style="text-align: center; max-width: 700px; margin: 0 auto;">
-                Jelajahi rak-rak ajaib kami yang menyimpan ribuan kisah dan misteri alam semesta. Mulai dari keajaiban buku fiksi, panduan ilmu komputer, hingga jurnal penelitian terpercaya hadir untuk menemani perjalanan akademis Anda.
+            <p style="text-align: center; max-width: 750px; margin: 0 auto; font-size: 16px;">
+                Langkahkan kaki Anda ke dalam lorong ilmu pengetahuan tanpa batas. Di Perpustakaan Universitas Jackpot, kami menyimpan berbagai 'perkamen' fiksi epik, literatur teknologi masa depan, hingga jurnal akademik yang siap membuka portal wawasan Anda.
             </p>
         </section>
 
@@ -280,11 +334,9 @@
             <h2 class="section-title">Cari Koleksi</h2>
             
             <div class="search-filter-container">
-                <!-- Kolom pencarian pajangan (Mockup UI) untuk memenuhi poin soal -->
                 <input type="text" class="search-bar" placeholder="Ketik judul, penulis, atau kata kunci (Visual Only)...">
                 
                 <div class="filter-buttons">
-                    <!-- Tombol ini adalah LABEL yg terhubung ke input Radio di atas -->
                     <label for="radio-semua" class="filter-btn btn-semua">Semua Koleksi</label>
                     <label for="radio-fiksi" class="filter-btn btn-fiksi">Fiksi</label>
                     <label for="radio-teknologi" class="filter-btn btn-teknologi">Teknologi</label>
@@ -353,7 +405,7 @@
                 
                 <!-- JURNAL 1 -->
                 <article class="card">
-                    <span class="kategori-tag" style="background-color: #fce7f3; color: #be185d;">Jurnal</span>
+                    <span class="kategori-tag">Jurnal</span>
                     <h3 class="judul-buku">Jurnal Visi Pustaka</h3>
                     <p class="penulis">Penerbit: Perpusnas RI</p>
                     <p>Fokus: Kajian literasi, kearsipan, dan layanan informasi.</p>
@@ -364,7 +416,7 @@
 
                 <!-- JURNAL 2 -->
                 <article class="card">
-                    <span class="kategori-tag" style="background-color: #fce7f3; color: #be185d;">Jurnal</span>
+                    <span class="kategori-tag">Jurnal</span>
                     <h3 class="judul-buku">Jurnal Sistem Informasi (JSI)</h3>
                     <p class="penulis">Penerbit: Fasilkom UI</p>
                     <p>Fokus: Penerapan teknologi informasi di berbagai bidang.</p>
